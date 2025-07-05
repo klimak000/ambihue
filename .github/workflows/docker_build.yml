@@ -17,4 +17,4 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build .
+          docker build --target linters .

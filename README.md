@@ -1,5 +1,8 @@
 # AmbiHue
 
+[![Run SuperLinter](https://github.com/klimak000/ambihue/actions/workflows/superlinter.yml/badge.svg)](https://github.com/klimak000/ambihue/actions/workflows/superlinter.yml)
+[![Build Docker Image](https://github.com/klimak000/ambihue/actions/workflows/docker_build.yml/badge.svg)](https://github.com/klimak000/ambihue/actions/workflows/docker_build.yml)
+
 Program restores connection between Philips Ambilight TVs and the Hue Bridge by reading Ambilight data from the TV and forwarding it to Hue via the Entertainment Area API.
 
 The Hue Entertainment Area provides low-latency color updates, offering significantly faster response times compared to standard light control via the Hue API.

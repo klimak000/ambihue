@@ -52,7 +52,7 @@ RUN pip install --no-cache-dir -r requirements_dev.txt
 
 # Install AmbiHue
 COPY src /src
-COPY ambihue.py pyproject.toml userconfig.yaml /
+COPY ambihue.py pyproject.toml /
 
 RUN isort src ambihue.py \
     && black src ambihue.py \
