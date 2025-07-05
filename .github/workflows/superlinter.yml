@@ -23,3 +23,4 @@ jobs:
           VALIDATE_PYTHON_PYINK: false # prefer Black
           VALIDATE_CHECKOV: false # prefer Hadolint
           VALIDATE_MARKDOWN_PRETTIER: false # prefer Markdownlint
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
