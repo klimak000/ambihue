@@ -1,8 +1,11 @@
 ---
-name: Run superlinter
+name: Run SuperLinter
 
 on:
   pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
   super-linter:
