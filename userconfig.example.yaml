@@ -1,0 +1,31 @@
+---
+ambilight_tv:
+  # SEE README.md for more details
+  protocol: "https://" # "http://" or "https://"
+  ip: replace_me # IP address of the TV
+  port: "1926" # 1925 for APIv5, 1926->APIv6? or 1925->HTTP, 1926->HTTPS?
+  api_version: "6" # API version of the TV: 1, 5 or 6
+  path: "ambilight/processed" # leave default. see code in `ambilight_tv.py`
+  wait_for_startup_s: 29 # Timeout for pinging device before reporting an error
+  power_on_time_s: 8 # Timeout to FINISH TV booting before sending commands
+
+hue_entertainment_group:
+  # SEE README.md for more details
+  _identification: "replace_me"
+  _rid: "replace_me"
+  _ip_address: "replace_me"
+  _swversion: 1972004020
+  _username: "replace_me"
+  _hue_app_id: "replace_me"
+  _client_key: "replace_me"
+  _name: "Hue Bridge"
+  index: 0 # Your Entertainment Area selection by index - manual adjustment
+
+lights_setup:
+  # SEE README.md for more details
+  left:
+    id: 0
+    positions: [3, 4]
+  right:
+    id: 1
+    positions: [12, 13]

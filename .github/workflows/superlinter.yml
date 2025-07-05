@@ -1,0 +1,22 @@
+---
+name: Run superlinter
+
+on:
+  pull_request:
+
+jobs:
+  super-linter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Super-Linter
+        uses: github/super-linter@vslim-v7
+        env:
+          DEFAULT_BRANCH: master
+          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_PYTHON_PYINK: false # prefer Black
+          VALIDATE_CHECKOV: false # prefer Hadolint
+          VALIDATE_MARKDOWN_PRETTIER: false # prefer Markdownlint

@@ -1,0 +1,7 @@
+__pycache__/
+.mypycache__/
+ambihue.egg-info
+build
+data/
+logs
+userconfig.yaml

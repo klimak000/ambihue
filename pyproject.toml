@@ -1,0 +1,28 @@
+[project]
+name = "ambihue"
+version = "1.0"
+description = "A short description of your project"
+# TODO
+authors = [{name = "Your Name", email = "your.email@example.com"}]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["src"]
+
+[tool.black]
+# line ruler 100 chars
+line-length = 100
+
+[tool.mypy]
+# mypy with strict option
+strict = true
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+line_length = 100
+profile = "black"

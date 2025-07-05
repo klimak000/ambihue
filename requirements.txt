@@ -1,0 +1,17 @@
+argcomplete # script's args
+pyyaml # config files
+types-pyyaml  # typing for pyyaml
+webcolors  # get names for RGB colors
+
+# Network Communication
+requests
+urllib3  # use to disable warnings
+types-requests  # typing for request
+
+# Hue communication
+# https://github.com/hrdasdominik/hue-entertainment-pykit
+# dependencies: https://github.com/hrdasdominik/hue-entertainment-pykit/blob/main/pyproject.toml
+# hue-entertainment-pykit requires Python<=3.12
+hue-entertainment-pykit
+
+# python-mbedtls==2.10.1  # the newest version # https://pypi.org/project/python-mbedtls/2.10.1/

@@ -1,0 +1,12 @@
+[MESSAGES CONTROL]
+disable=
+    logging-fstring-interpolation,  # prefer logging f style
+    fixme,                          # allow TODO, FIXME, etc.
+    missing-docstring,              # allow missing docstrings for now
+    too-many-locals,                # allow more than 15 local variables per function
+    too-few-public-methods,         # for now
+    too-many-instance-attributes,   # for now
+    import-error                    # super-linter requires this
+
+[FORMAT]
+max-line-length=100
