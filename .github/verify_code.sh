@@ -10,7 +10,7 @@ docker build -t test --target=linters .
 
 echo -e "\nRunning Super-Linter in Docker...$(pwd)"
 docker run --rm \
-	-e DEFAULT_BRANCH=master \
+	-e DEFAULT_BRANCH=main \
 	-e TERM=xterm \
 	-e FORCE_COLOR=1 \
 	-e LOG_LEVEL=INFO \

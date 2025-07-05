@@ -1,8 +1,11 @@
 ---
-name: Run superlinter
+name: Build Docker Image
 
 on:
   pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
   super-linter:
@@ -14,4 +17,4 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build .
+          docker build --target linters .
