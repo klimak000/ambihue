@@ -50,7 +50,7 @@ COPY .github/requirements_dev.txt /
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements_dev.txt
 
-# Copy AmbiHue # sync with 72-73
+# Copy ambihue # sync with 72-73
 COPY src /src
 COPY ambihue.py pyproject.toml /
 
@@ -68,11 +68,11 @@ RUN pylint ambihue ambihue.py
 #
 FROM build_base AS final
 
-# Copy AmbiHue # sync with 54-55
+# Copy ambihue # sync with 54-55
 COPY src /src
 COPY ambihue.py pyproject.toml /
 
-# Install AmbiHue
+# Install ambihue
 RUN pip install --no-cache-dir .
 
 CMD [ "/ambihue.py" ]
@@ -82,5 +82,5 @@ LABEL \
     io.hass.name="ambihue" \
     io.hass.arch="$TARGETPLATFORM" \
     io.hass.type="addon" \
-    io.hass.version="1.0.1" \
+    io.hass.version="1.1.0" \
     maintainer="klimak000"

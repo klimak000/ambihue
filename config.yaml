@@ -1,6 +1,6 @@
 ---
 name: AmbiHue
-version: "1.0.1"
+version: "1.1.0"
 slug: ambihue
 description: "ambihue = Ambilight and Hue connected again!"
 url: https://github.com/klimak000/ambihue
@@ -12,8 +12,10 @@ ports:
   "1926/tcp": 1926
   "8080/tcp": 8080
 options:
-  # TODO remove?
-  my_config_field: "5"
+  # userconfig.example.yaml is a template for userconfig.yaml
+  user_config_yaml: "copy userconfig.example.yaml"
 schema:
-  my_config_field: "int"
+  user_config_yaml: "str"
 init: false
+boot: manual
+environment: USER_CONFIG_YAML

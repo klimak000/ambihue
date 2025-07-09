@@ -1,5 +1,4 @@
 import logging
-import os
 from pathlib import Path
 from typing import Any, Dict, Optional, Union
 
@@ -9,6 +8,11 @@ logger = logging.getLogger(__name__)
 
 
 class ConfigLoader:
+    """Singleton class to load and access configuration data from a YAML file.
+
+    Config can be provided via a file or an environment variable USER_CONFIG_YAML
+    """
+
     _instance: Optional["ConfigLoader"] = None
     _config_data: dict[str, Any]
 
@@ -20,13 +24,8 @@ class ConfigLoader:
 
     def _load(self, config_path: Union[str, Path]) -> None:
 
-        _dynamic_config = os.getenv("USER_CONFIG_YAML")
-        if _dynamic_config:
-            logger.info("Using dynamic config from environment variable USER_CONFIG_YAML")
-            self._config_data = yaml.safe_load(_dynamic_config)
-        else:
-            with open(config_path, "r", encoding="utf-8") as file:
-                self._config_data = yaml.safe_load(file)
+        with open(config_path, "r", encoding="utf-8") as file:
+            self._config_data = yaml.safe_load(file)
 
         assert self.get_hue_entertainment()
         assert self.get_ambilight_tv()
