@@ -1,22 +1,32 @@
+import logging
+import os
 from pathlib import Path
 from typing import Any, Dict, Optional, Union
 
 import yaml
+
+logger = logging.getLogger(__name__)
 
 
 class ConfigLoader:
     _instance: Optional["ConfigLoader"] = None
     _config_data: dict[str, Any]
 
-    def __new__(cls, path: Union[str, Path] = "userconfig.yaml") -> "ConfigLoader":
+    def __new__(cls, config_path: Union[str, Path] = "userconfig.yaml") -> "ConfigLoader":
         if cls._instance is None:
             cls._instance = super().__new__(cls)
-            cls._instance._load(path)
+            cls._instance._load(config_path)
         return cls._instance
 
-    def _load(self, path: Union[str, Path]) -> None:
-        with open(path, "r", encoding="utf-8") as f:
-            self._config_data = yaml.safe_load(f)
+    def _load(self, config_path: Union[str, Path]) -> None:
+
+        _dynamic_config = os.getenv("USER_CONFIG_YAML")
+        if _dynamic_config:
+            logger.info("Using dynamic config from environment variable USER_CONFIG_YAML")
+            self._config_data = yaml.safe_load(_dynamic_config)
+        else:
+            with open(config_path, "r", encoding="utf-8") as file:
+                self._config_data = yaml.safe_load(file)
 
         assert self.get_hue_entertainment()
         assert self.get_ambilight_tv()

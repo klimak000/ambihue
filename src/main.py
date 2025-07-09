@@ -1,8 +1,9 @@
 import logging
 import sys
 from json import JSONDecodeError
+from pathlib import Path
 from time import sleep
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 
 from src.ambilight_tv import AmbilightTV  # TODO install
 from src.color_mixer import ColorMixer
@@ -15,14 +16,15 @@ logger = logging.getLogger(__name__)
 class AmbiHueMain:
     """Main class to run the AmbiHue application."""
 
-    def __init__(self) -> None:
+    def __init__(self, config_path: Union[str, Path] = "userconfig.yaml") -> None:
         """Initialize the AmbiHue main class."""
-        self.config_loader = ConfigLoader()
-        self._tv = AmbilightTV(self.config_loader.get_ambilight_tv())
-        self._hue = HueEntertainmentGroupKit(self.config_loader.get_hue_entertainment())
+        self._config_loader = ConfigLoader(config_path)
+
+        self._tv = AmbilightTV(self._config_loader.get_ambilight_tv())
+        self._hue = HueEntertainmentGroupKit(self._config_loader.get_hue_entertainment())
         self._mixer = ColorMixer()
 
-        self._light_setup = self.config_loader.get_lights_setup()
+        self._light_setup = self._config_loader.get_lights_setup()
 
         self._tv_error_cnt = 0
 
