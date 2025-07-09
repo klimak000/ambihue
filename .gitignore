@@ -1,5 +1,5 @@
 __pycache__/
-.mypycache__/
+.mypy_cache__/
 ambihue.egg-info
 build
 data/
