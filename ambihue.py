@@ -11,7 +11,6 @@ import sys
 from typing import Any
 
 import yaml
-
 from src.ah_logger import init_logger
 from src.main import AmbiHueMain, discover_hue, verify_hue, verify_tv
 
