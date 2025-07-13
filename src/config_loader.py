@@ -1,22 +1,31 @@
+import logging
 from pathlib import Path
 from typing import Any, Dict, Optional, Union
 
 import yaml
 
+logger = logging.getLogger(__name__)
+
 
 class ConfigLoader:
+    """Singleton class to load and access configuration data from a YAML file.
+
+    Config can be provided via a file or an environment variable USER_CONFIG_YAML
+    """
+
     _instance: Optional["ConfigLoader"] = None
     _config_data: dict[str, Any]
 
-    def __new__(cls, path: Union[str, Path] = "userconfig.yaml") -> "ConfigLoader":
+    def __new__(cls, config_path: Union[str, Path] = "userconfig.yaml") -> "ConfigLoader":
         if cls._instance is None:
             cls._instance = super().__new__(cls)
-            cls._instance._load(path)
+            cls._instance._load(config_path)
         return cls._instance
 
-    def _load(self, path: Union[str, Path]) -> None:
-        with open(path, "r", encoding="utf-8") as f:
-            self._config_data = yaml.safe_load(f)
+    def _load(self, config_path: Union[str, Path]) -> None:
+
+        with open(config_path, "r", encoding="utf-8") as file:
+            self._config_data = yaml.safe_load(file)
 
         assert self.get_hue_entertainment()
         assert self.get_ambilight_tv()
@@ -40,7 +49,20 @@ class ConfigLoader:
     def get_lights_setup(self) -> Dict[str, Any]:
         _ret = self._config_data.get("lights_setup")
         assert isinstance(_ret, dict)
-        return _ret
+
+        lights = {}
+        for key in ["A", "B", "C", "D"]:  # up to 4 lights
+            if f"{key}_name" not in _ret:
+                continue  # skip if no name is provided
+
+            name = _ret.get(f"{key}_name")
+            id_ = _ret.get(f"{key}_id")
+            positions = _ret.get(f"{key}_positions")
+            if name is not None:
+                lights[name] = {"id": id_, "positions": positions}
+
+        assert isinstance(lights, dict)
+        return lights
 
     def get_nested(self, *keys: str, default: Any = None) -> Any:
         """Access nested values, e.g. get_nested("db", "host")"""

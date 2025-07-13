@@ -133,6 +133,8 @@ Run script
 
 ## Home Assistance Usage
 
+### For Developers
+
 1. Upload code with configured `userconfig.yaml`:
 
    ```bash
@@ -140,6 +142,12 @@ Run script
    ```
 
 1. Use installed addon as local addon by [following official guide](https://developers.home-assistant.io/docs/add-ons/tutorial#step-2-installing-and-testing-your-add-on)
+
+### Via UI
+
+**NOT TESTED!**
+
+[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fklimak000%2Fambihue)
 
 ## Files structure
 
@@ -151,6 +159,7 @@ Run script
 - `pyproject.toml` - Python project config
 - `requirements.txt` - Python packages
 - `userconfig.example.yaml` - copy, rename to `userconfig.yaml`, fill up
+- `repository.yaml` - Home Assistance addon repository config
 
 ## Test building
 
@@ -163,4 +172,5 @@ docker build -t ambihue_test .
    ```bash
    docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
    docker build --progress=plain --debug --platform linux/arm64/v8 -t ambihue_test_arm8 .
+   docker build --progress=plain --debug --platform linux/arm/v7 -t ambihue_test_arm7 .
    ```

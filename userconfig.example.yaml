@@ -23,9 +23,16 @@ hue_entertainment_group:
 
 lights_setup:
   # SEE README.md for more details
-  left:
-    id: 0
-    positions: [3, 4]
-  right:
-    id: 1
-    positions: [12, 13]
+  A_name: "sofa_behind"
+  A_id: 0
+  A_positions: [0, 1]
+  B_name: "go_up"
+  B_id: 1
+  B_positions: [2, 3]
+  # lights can be disabled:
+  # C_name: "right"
+  # C_id: 2
+  # C_positions: [3, 4]
+  # D_name: "left"
+  # D_id: 3
+  # D_positions: [12, 13]

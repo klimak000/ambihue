@@ -1,21 +1,74 @@
 ---
 name: AmbiHue
-version: "1.0"
+version: "1.1.0"
 slug: ambihue
 description: "ambihue = Ambilight and Hue connected again!"
-url: https://github.com/klimak000/...
+url: https://github.com/klimak000/ambihue
 arch:
   - aarch64
   - amd64
-  - armhf
   - armv7
-  - i386
 ports:
   "1926/tcp": 1926
   "8080/tcp": 8080
 options:
-  # TODO remove?
-  my_config_field: "5"
+  ambilight_tv:
+    protocol: "https://"
+    ip: "replace_me"
+    port: "1926"
+    api_version: "6"
+    path: "ambilight/processed"
+    wait_for_startup_s: 29
+    power_on_time_s: 8
+  hue_entertainment_group:
+    _identification: "replace_me"
+    _rid: "replace_me"
+    _ip_address: "replace_me"
+    _swversion: 1972004020
+    _username: "replace_me"
+    _hue_app_id: "replace_me"
+    _client_key: "replace_me"
+    _name: "Hue Bridge"
+    index: 0
+  lights_setup:
+    A_name: "refer to README.md and example config"
+    A_id: 0
+    A_positions: [1]
 schema:
-  my_config_field: "int"
+  ambilight_tv:
+    protocol: "str"
+    ip: "str"
+    port: "str"
+    api_version: "str"
+    path: "str"
+    wait_for_startup_s: "int"
+    power_on_time_s: "int"
+  hue_entertainment_group:
+    _identification: "str"
+    _rid: "str"
+    _ip_address: "str"
+    _swversion: "int"
+    _username: "str"
+    _hue_app_id: "str"
+    _client_key: "str"
+    _name: "str"
+    index: "int"
+  lights_setup:
+    A_name: "str"
+    A_id: "int"
+    A_positions:
+      - "int"
+    B_name: "str"
+    B_id: "int"
+    B_positions:
+      - "int"
+    C_name: "str"
+    C_id: "int"
+    C_positions:
+      - "int"
+    D_name: "str"
+    D_id: "int"
+    D_positions:
+      - "int"
 init: false
+boot: manual

@@ -3,10 +3,14 @@
 """Main docker script."""
 
 import argparse
+import json
 import logging
+import os
 import signal
 import sys
 from typing import Any
+
+import yaml
 
 from src.ah_logger import init_logger
 from src.main import AmbiHueMain, discover_hue, verify_hue, verify_tv
@@ -63,11 +67,33 @@ def _init_parser() -> Any:
     return args
 
 
+_HOME_ASSISTANT_CONFIG = "/data/options.json"
+
+
+def _create_user_config() -> None:
+    if os.path.exists("userconfig.yaml"):
+        return  # already exists
+
+    # Try to load the user config from Home Assistant
+    if os.path.exists(_HOME_ASSISTANT_CONFIG):
+        with open(_HOME_ASSISTANT_CONFIG, encoding="utf-8") as ha_config_file:
+
+            user_config_dict = json.load(ha_config_file)
+
+            with open("userconfig.yaml", "w", encoding="utf-8") as out:
+                yaml.dump(user_config_dict, out, default_flow_style=False)
+            return
+
+    raise FileNotFoundError(("userconfig.yaml NOT FOUND"))
+
+
 def main() -> None:
     """Main function to run the spawn AmbiHue. Enable logs and parse input."""
     args = _init_parser()
 
     init_logger(args.loglevel)
+
+    _create_user_config()
 
     if args.verify == "hue":
         verify_hue()
