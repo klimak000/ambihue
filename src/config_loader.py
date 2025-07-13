@@ -49,7 +49,20 @@ class ConfigLoader:
     def get_lights_setup(self) -> Dict[str, Any]:
         _ret = self._config_data.get("lights_setup")
         assert isinstance(_ret, dict)
-        return _ret
+
+        lights = {}
+        for key in ["A", "B", "C", "D"]:  # up to 4 lights
+            if f"{key}_name" not in _ret:
+                continue  # skip if no name is provided
+
+            name = _ret.get(f"{key}_name")
+            id_ = _ret.get(f"{key}_id")
+            positions = _ret.get(f"{key}_positions")
+            if name is not None:
+                lights[name] = {"id": id_, "positions": positions}
+
+        assert isinstance(lights, dict)
+        return lights
 
     def get_nested(self, *keys: str, default: Any = None) -> Any:
         """Access nested values, e.g. get_nested("db", "host")"""

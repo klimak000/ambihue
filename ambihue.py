@@ -77,10 +77,8 @@ def _create_user_config() -> None:
     # Try to load the user config from Home Assistant
     if os.path.exists(_HOME_ASSISTANT_CONFIG):
         with open(_HOME_ASSISTANT_CONFIG, encoding="utf-8") as ha_config_file:
-            ha_config = json.load(ha_config_file)
 
-            user_config_raw = ha_config.get("user_config_yaml")
-            user_config_dict = yaml.safe_load(user_config_raw)
+            user_config_dict = json.load(ha_config_file)
 
             with open("userconfig.yaml", "w", encoding="utf-8") as out:
                 yaml.dump(user_config_dict, out, default_flow_style=False)
