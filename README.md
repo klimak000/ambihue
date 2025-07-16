@@ -7,6 +7,8 @@ Program restores connection between Philips Ambilight TVs and the Hue Bridge by 
 
 The Hue Entertainment Area provides low-latency color updates, offering significantly faster response times compared to standard light control via the Hue API.
 
+**It is possilbe to get 15 updates per second!**
+
 ![preview](.github/images/preview.png)
 
 
