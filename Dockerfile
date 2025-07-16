@@ -82,5 +82,5 @@ LABEL \
     io.hass.name="ambihue" \
     io.hass.arch="$TARGETPLATFORM" \
     io.hass.type="addon" \
-    io.hass.version="1.1.0" \
+    io.hass.version="1.1.1" \
     maintainer="klimak000"

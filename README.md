@@ -123,15 +123,21 @@ classDiagram
     ./ambihue.py --loglevel DEBUG
     ```
 
-## Validate code changes
-
-Run script
-
-```bash
-./.github/verify_code.py
-```
-
 ## Home Assistance Usage
+
+### Via UI
+
+1. [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fklimak000%2Fambihue)
+1. Navigate to HA Addon and click `AmbiHue`
+
+    ![preview](.github/images/ha_store.png)
+
+1. Install addon and navigate to `Configuration` card
+
+1. Click `Options` 3 dots and click `Edit in YAML`
+
+1. Copy `userconfig.yaml` from setup stage
+
 
 ### For Developers
 
@@ -143,11 +149,7 @@ Run script
 
 1. Use installed addon as local addon by [following official guide](https://developers.home-assistant.io/docs/add-ons/tutorial#step-2-installing-and-testing-your-add-on)
 
-### Via UI
-
-**NOT TESTED!**
-
-[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fklimak000%2Fambihue)
+1. Every upload requires `config.yaml`[`version`] update to make changes visible for HA.
 
 ## Files structure
 
@@ -161,10 +163,12 @@ Run script
 - `userconfig.example.yaml` - copy, rename to `userconfig.yaml`, fill up
 - `repository.yaml` - Home Assistance addon repository config
 
-## Test building
+## Validate code changes
+
+Run script
 
 ```bash
-docker build -t ambihue_test .
+./.github/verify_code.py
 ```
 
 ### Test building for others platform
