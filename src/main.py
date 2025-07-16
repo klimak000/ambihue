@@ -59,7 +59,7 @@ class AmbiHueMain:
         return None  # return None if an error occurs
 
     def _debug_log_time(self, msg: str) -> None:
-        if logger.level >= logging.DEBUG:
+        if logger.level <= logging.DEBUG:
             return  # skip if debug logging is not enabled
 
         current_time = time.time()
