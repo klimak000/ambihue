@@ -4,7 +4,7 @@ import os
 import time
 from typing import Any, Dict
 
-import requests
+import httpx
 import urllib3
 
 logger = logging.getLogger(__name__)
@@ -16,11 +16,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 class AmbilightTV:
 
     def __init__(self, config: Dict[str, Any]) -> None:
-        self._session = requests.Session()  # keep session to increase performance
-        self._session.verify = False  # disable SSL
-        self._session.mount(
-            "https://", requests.adapters.HTTPAdapter(pool_connections=1)
-        )  # limit to 1 connection!
+        self._client = httpx.Client(verify=False, http2=True)
 
         self._protocol = config.get("protocol", "https://")
         self._ip = config["ip"]
@@ -57,17 +53,13 @@ class AmbilightTV:
 
     def get_ambilight_raw(self) -> Any:
         # logger.debug(f"Sending GET request to:\n{self._full_path}")
+        # HTTPX is faster than requests: 55ms vs 90ms
         try:
-            response = self._session.get(
-                self._full_path,
-                verify=False,
-                timeout=0.2,
-            )
-        except requests.exceptions.ConnectTimeout as err:
-            raise RuntimeError(err) from err
-        except requests.exceptions.ConnectionError as err:
-            raise RuntimeError(err) from err
-        except requests.exceptions.ReadTimeout as err:
+            # _time = time.time()
+            response = self._client.get(self._full_path, timeout=0.2)
+            # elapsed_time = int((time.time() - _time) * 1000)  # convert to ms
+            # logger.debug(f"[tv_get_request] elapsed time: {elapsed_time} ms")
+        except httpx.RequestError as err:
             raise RuntimeError(err) from err
 
         return response.text
