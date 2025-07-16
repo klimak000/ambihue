@@ -4,9 +4,8 @@ types-pyyaml  # typing for pyyaml
 webcolors  # get names for RGB colors
 
 # Network Communication
-requests
+httpx[http2]  # HTTP client for Python with HTTP2 support # faster than requests
 urllib3  # use to disable warnings
-types-requests  # typing for request
 
 # Hue communication
 # https://github.com/hrdasdominik/hue-entertainment-pykit
