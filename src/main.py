@@ -1,5 +1,6 @@
 import logging
 import sys
+import time
 from json import JSONDecodeError
 from pathlib import Path
 from time import sleep
@@ -28,6 +29,8 @@ class AmbiHueMain:
 
         self._tv_error_cnt = 0
 
+        self._previous_time = time.time()
+
     def _read_tv(self) -> Optional[Dict[str, Any]]:
         """Read the Ambilight TV data.
 
@@ -55,20 +58,32 @@ class AmbiHueMain:
 
         return None  # return None if an error occurs
 
+    def _debug_log_time(self, msg: str) -> None:
+        if logger.level <= logging.DEBUG:
+            return  # skip if debug logging is not enabled
+
+        current_time = time.time()
+        elapsed_time = int((current_time - self._previous_time) * 1000)  # convert to ms
+        logger.warning(f"[{msg}] elapsed time: {elapsed_time} ms")
+        self._previous_time = current_time
+
     def run(self) -> None:
         """Run the main loop of the AmbiHue application."""
         self._tv.wait_for_startup()
         logger.info("Starting AmbiHue application...")
 
         while True:  # while true
-            sleep(0.01)
+            sleep(0.001)
+            self._debug_log_time("sleep")
 
             tv_data = self._read_tv()
             if tv_data is None:
                 continue  # skip this loop if TV data is not available this time
+            self._debug_log_time("read_tv")
 
             self._mixer.apply_tv_data(tv_data)
             self._mixer.print_colors()
+            self._debug_log_time("print_colors")
 
             for light_name, light_data in self._light_setup.items():
                 color = self._mixer.get_average_color(light_data["positions"])
@@ -78,6 +93,7 @@ class AmbiHueMain:
                 logger.info(f"Light: {light_name} - {print_color} - {light_data} ")
 
             logger.info("\n\n")
+            self._debug_log_time("set_color_x_lights")
 
     def _exit(self, exit_code: int = 0) -> None:
         """Exit the AmbiHue application."""
